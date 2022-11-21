@@ -1,0 +1,31 @@
+{
+  "name": "cloudops",
+  "version": "1.0.0",
+  "description": "An App to read in data, parse that data, then output a log file depending on how many times the word \"imperdiet\" is found.",
+  "main": "dist/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Exochos/cloudops.git"
+  },
+  "keywords": [
+    "cloudops",
+    "counting",
+    "sentences"
+  ],
+  "author": "Jeremy Ward",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Exochos/cloudops/issues"
+  },
+  "homepage": "https://github.com/Exochos/cloudops#readme",
+  "dependencies": {
+    "command-line-args": "^5.2.1"
+  },
+  "devDependencies": {
+    "prettier": "2.7.1"
+  }
+}
