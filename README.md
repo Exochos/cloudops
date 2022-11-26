@@ -1,4 +1,9 @@
 # cloudops
+## How to run
+`git clone`
+`npm install`
+`npm start -- -p ./test.txt -m read -s true`
+
 The application should accept two input parameters
 Path to a text file used to read from or write to
 Read/write switch denoting whether the user action is to read the file or to write to the file
