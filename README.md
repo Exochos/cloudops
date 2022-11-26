@@ -1,8 +1,8 @@
 # cloudops
 ## How to run
-`git clone`
-`npm install`
-`npm start -- -p ./test.txt -m read -s true`
+`git clone https://github.com/Exochos/cloudops.git`  
+`npm install`  
+`npm start -- -p ./test.txt -m read -s true`  
 
 The application should accept two input parameters
 Path to a text file used to read from or write to
