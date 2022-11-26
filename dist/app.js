@@ -2,6 +2,7 @@ import commandLineArgs from 'command-line-args';
 import log4js from 'log4js';
 import { readApi } from './components/readApi.js';
 import { writeApi } from './components/writeApi.js';
+import events from 'events';
 // Begin performance metrics
 const t0 = performance.now();
 
@@ -50,18 +51,24 @@ switch (options.mode) {
         const readData = readApi(options.path, WORD, logger);
         break;
     case 'write':
-        const writeData = writeApi(options.path, logger);
+      try {
+        const writeData = writeApi(logger, WORD);
+      } catch (err) {
+        console.error(err);
+      }
         break;
     default:
         console.log('Please specify a mode: "read" or "write"');
         break;
 }
 
-console.log( "\u001b[1;33m" );
-console.log('loglevel:', options.loglevel, '\nmode:', options.mode, '\npath:', options.path, '\nstats:', options.stats);
-console.log("\u001b[1;32m");
-// End performance metrics
-console.log('Total execution time', Math.round((performance.now() - t0) * 100) / 100 + 'ms');
-const used = process.memoryUsage().heapUsed / 1024 / 1024;
-console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
-console.log( "\u001b[0m");
+if (options.stats === 'true') {
+  console.log( "\u001b[1;33m" );
+  console.log('loglevel:', options.loglevel, '\nmode:', options.mode, '\npath:', options.path, '\nstats:', options.stats);
+  console.log("\u001b[1;32m");
+  // End performance metrics
+  console.log('Total execution time', Math.round((performance.now() - t0) * 100) / 100 + 'ms');
+  const used = process.memoryUsage().heapUsed / 1024 / 1024;
+  console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
+  console.log( "\u001b[0m");
+}

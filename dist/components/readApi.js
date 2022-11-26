@@ -1,7 +1,7 @@
 import nReadlines from 'n-readlines';
 
 
-export function readApi(path, WORD) {
+export function readApi(path, WORD, logger) {
     let avgLineSpeed0 = 0;
     let avgLineSpeed1 = 0;
     let avgWordSpeed0 = 0;
@@ -44,9 +44,51 @@ export function readApi(path, WORD) {
       }
       avgWordSpeed1 += performance.now();    
     }
-/*     console.log('avg line speed:', Math.round((avgLineSpeed0 - avgLineSpeed1)/totalLineCount * 100) / 100 + 'ms');
-    console.log('avg word speed:', Math.round((avgWordSpeed1 - avgWordSpeed0)/totalWordCount * 10000) / 10000 + 'ms');
-    console.log('Number of words found', totalWordCount);
-    console.log('Number of lines with a word found', totalLineWordCount); */
-    return [totalWordCount, totalLineCount, avgLineSpeed1 - avgLineSpeed0, avgWordSpeed1 - avgWordSpeed0];
+    switch (logger.level.levelStr) {
+        case 'TRACE':
+            logger.trace(`Total word count: ${totalWordCount}`);
+            logger.trace(`Total line word count: ${totalLineWordCount}`);
+            logger.trace(`Total line count: ${totalLineCount}`);
+            logger.trace(`Average line speed: ${(Math.round((avgLineSpeed0 - avgLineSpeed1)/totalLineCount * 100) / 100)} ms`);
+            logger.trace(`Average word speed: ${(Math.round(avgWordSpeed1 - avgWordSpeed0)/totalWordCount * 10000) / 10000} ms`);
+            break;
+        case 'DEBUG':
+            logger.debug(`Total word count: ${totalWordCount}`);
+            logger.debug(`Total line word count: ${totalLineWordCount}`);
+            logger.debug(`Total line count: ${totalLineCount}`);
+            logger.debug(`Average line speed: ${(Math.round((avgLineSpeed0 - avgLineSpeed1)/totalLineCount * 100) / 100)} ms`);
+            logger.debug(`Average word speed: ${(Math.round(avgWordSpeed1 - avgWordSpeed0)/totalWordCount * 10000) / 10000} ms`);
+            break;
+        case 'INFO':
+            logger.info(`Total word count: ${totalWordCount}`);
+            logger.info(`Total line word count: ${totalLineWordCount}`);
+            logger.info(`Total line count: ${totalLineCount}`);
+            logger.info(`Average line speed: ${(Math.round((avgLineSpeed0 - avgLineSpeed1)/totalLineCount * 100) / 100)} ms`);
+            logger.info(`Average word speed: ${(Math.round(avgWordSpeed1 - avgWordSpeed0)/totalWordCount * 10000) / 10000} ms`);
+            break;
+        case 'WARN':
+            logger.warn(`Total word count: ${totalWordCount}`);
+            logger.warn(`Total line word count: ${totalLineWordCount}`);
+            logger.warn(`Total line count: ${totalLineCount}`);
+            logger.warn(`Average line speed: ${(Math.round((avgLineSpeed0 - avgLineSpeed1)/totalLineCount * 100) / 100)} ms`);
+            logger.warn(`Average word speed: ${(Math.round(avgWordSpeed1 - avgWordSpeed0)/totalWordCount * 10000) / 10000} ms`);
+            break;
+        case 'ERROR':
+            logger.error(`Total word count: ${totalWordCount}`);
+            logger.error(`Total line word count: ${totalLineWordCount}`);
+            logger.error(`Total line count: ${totalLineCount}`);
+            logger.error(`Average line speed: ${(Math.round((avgLineSpeed0 - avgLineSpeed1)/totalLineCount * 100) / 100)} ms`);
+            logger.error(`Average word speed: ${(Math.round(avgWordSpeed1 - avgWordSpeed0)/totalWordCount * 10000) / 10000} ms`);
+            break;
+        case 'CRITICAL':
+            logger.critical(`Total word count: ${totalWordCount}`);
+            logger.critical(`Total line word count: ${totalLineWordCount}`);
+            logger.critical(`Total line count: ${totalLineCount}`);
+            logger.critical(`Average line speed: ${(Math.round((avgLineSpeed0 - avgLineSpeed1)/totalLineCount * 100) / 100)} ms`);
+            logger.critical(`Average word speed: ${(Math.round(avgWordSpeed1 - avgWordSpeed0)/totalWordCount * 10000) / 10000} ms`);
+        default:
+            console.log("No logger level set");
+            break;
+    }
+    return totalWordCount;
     }
